@@ -2,7 +2,7 @@
 //!
 //! @file		gpio_interface.h
 //! 
-//! @brief		A linux class t handle interfacing with GPIOs
+//! @brief		A linux class to represent and handle interfacing with a GPIO
 //! 
 //! @author		Chip Brommer
 //!
