@@ -16,6 +16,8 @@
 #include <string>						// Strings
 #include <iostream>						// IO
 #include <map>							// Error map
+#include <fstream>						// file stream
+#include <sstream>						// string stream
 //
 //	Defines:
 //          name                        reason defined
@@ -45,6 +47,9 @@ namespace Essentials
 		enum class GpioError : uint8_t
 		{
 			NONE,
+			FILE_OPEN_FAILURE,
+			SET_EDGE_FAILURE,
+			BAD_DIRECTION,
 		};
 
 		/// @brief class enum for edge types
@@ -53,13 +58,15 @@ namespace Essentials
 			NONE,
 			RISING,
 			FALLING,
-			BOTH
+			BOTH,
+			UNKNOWN
 		};
 
 		enum class GpioDirection : uint8_t
 		{
 			IN,
-			OUT
+			OUT,
+			UNKNOWN
 		};
 
 		/// @brief Error enum to readable string conversion map
@@ -77,13 +84,11 @@ namespace Essentials
 			~GpioInterface();
 			std::string GetLastError();
 			std::string GetGpioPath();
-			void SetValue();
-			void GetValue();
-			std::string GetValueFilePath();
-			void SetEdge(GpioEdge edge);
+			int SetValue(bool value);
+			int GetValue();
+			int SetEdge(GpioEdge edge);
 			GpioEdge GetEdge();
-			std::string GetEdgeFilePath();
-			void SetDirection(GpioDirection direction);
+			int SetDirection(GpioDirection direction);
 			GpioDirection GetDirection();
 			
 		protected:
@@ -91,7 +96,7 @@ namespace Essentials
 			void ExportGpio();
 			void UnexportGpio();
 
-			GpioError	mLastError;
+			GpioError		mLastError;
 			const uint16_t	mGpioNumber;
 		};
 	}
