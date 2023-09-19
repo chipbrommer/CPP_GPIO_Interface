@@ -35,7 +35,7 @@ namespace Essentials
 
 		std::string GpioInterface::GetLastError()
 		{
-			return "";
+			return GpioErrorMap[mLastError];
 		}
 
 		std::string GpioInterface::GetGpioPath()

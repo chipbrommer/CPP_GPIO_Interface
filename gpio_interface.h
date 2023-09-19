@@ -44,12 +44,12 @@ namespace Essentials
 			std::to_string(GPIO_VERSION_BUILD) + ".\n";
 
 		/// @brief class enum for error codes
-		enum class GpioError : uint8_t
+		enum class GpioError : int8_t
 		{
-			NONE,
-			FILE_OPEN_FAILURE,
-			SET_EDGE_FAILURE,
-			BAD_DIRECTION,
+			NONE				= 0,
+			FILE_OPEN_FAILURE	= -1,
+			SET_EDGE_FAILURE	= -2,
+			BAD_DIRECTION		= -3
 		};
 
 		/// @brief class enum for edge types
@@ -70,10 +70,12 @@ namespace Essentials
 		};
 
 		/// @brief Error enum to readable string conversion map
-		static std::map<GpioError, std::string> TerminalErrorMap
+		static std::map<GpioError, std::string> GpioErrorMap
 		{
-			{GpioError::NONE,
-				std::string("Error Code " + std::to_string((uint8_t)GpioError::NONE) + ": No error.")},
+			{GpioError::NONE,				std::string("No error.")},
+			{GpioError::FILE_OPEN_FAILURE,	std::string("Failed to open file.")},
+			{GpioError::SET_EDGE_FAILURE,	std::string("Failed to set gpio edge.")},
+			{GpioError::BAD_DIRECTION,		std::string("Received invalid direction.")},
 		};
 
 		/// @brief A class to interface with GPIOs 
